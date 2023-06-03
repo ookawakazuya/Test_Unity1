@@ -7,12 +7,13 @@ public class SpawnManagerX : MonoBehaviour
     public GameObject[] objectPrefabs;//スポーンするオブジェクト
     private float spawnDelay = 2;//スポーン遅延時間
     private float spawnInterval = 1.5f;
+    float elapseedtime;// 経過時間
 
     private PlayerControllerX playerControllerScript;
 
     void Start()
     {
-        InvokeRepeating("PrawnsObject", spawnDelay, spawnInterval);//スポーン実行
+        InvokeRepeating("SpawnObjects", spawnDelay, spawnInterval);//スポーン実行
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerControllerX>();
     }
 
@@ -25,9 +26,10 @@ public class SpawnManagerX : MonoBehaviour
         int index = Random.Range(0, objectPrefabs.Length);
 
         //ゲームオーバーでなければスポーンする
-        if (!playerControllerScript.gameOver)
+        if ( !playerControllerScript.gameOver)
         {
             Instantiate(objectPrefabs[index], spawnLocation, objectPrefabs[index].transform.rotation);
+            
         }
 
     }
